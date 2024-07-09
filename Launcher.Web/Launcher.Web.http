@@ -1,0 +1,6 @@
+@Launcher.Web_HostAddress = http://localhost:5107
+
+GET {{Launcher.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

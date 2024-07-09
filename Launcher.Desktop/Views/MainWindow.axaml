@@ -1,0 +1,49 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Launcher.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:system="using:System"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Launcher.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Launcher" Background="WhiteSmoke">
+    <DockPanel>
+        <Image DockPanel.Dock="Top" Source="/Assets/logo2.png" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+        <Panel DockPanel.Dock="Bottom" Height="80">
+            <Button IsVisible="{Binding !IsInstalling}" Content="{Binding ButtonText}" 
+					Height="50" Width="200" FontSize="16" FontWeight="Bold" 
+					HorizontalContentAlignment="Center" 
+					VerticalContentAlignment="Center" VerticalAlignment="Center" 
+					HorizontalAlignment="Center" Command="{Binding PlayOrInstall}" />
+            <DockPanel IsVisible="{Binding IsInstalling}" VerticalAlignment="Center" 
+					   HorizontalAlignment="Stretch" Margin="10">
+                <Button DockPanel.Dock="Right" Content="STOP" Height="40" Width="100" 
+						FontSize="16" Background="Red" Foreground="White" Margin="10,0,0,0" 
+						HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+						VerticalAlignment="Center" Command="{Binding Stop}"/>
+                <ProgressBar DockPanel.Dock="Left" Height="40" Value="{Binding InstallProgress}"
+							 ProgressTextFormat="Downloading {0:F2}%" ShowProgressText="True" 
+							 VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+            </DockPanel>
+        </Panel>
+        <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding News}" Margin="10">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel Margin="0,0,0,15" Background="White">
+                            <Image DockPanel.Dock="Left" Source="{Binding Image}" Stretch="UniformToFill" Height="100" Width="150" Margin="0,0,5,0" />
+                            <StackPanel DockPanel.Dock="Left" Margin="5">
+                                <TextBlock Text="{Binding Title}" FontSize="18"/>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Description}" Height="40" Margin="0,5,0,0"/>
+                                <TextBlock Text="{Binding Date}" Foreground="Gray"/>
+                            </StackPanel>
+                        </DockPanel>
+                        
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</Window>
